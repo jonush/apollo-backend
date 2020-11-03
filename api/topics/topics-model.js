@@ -1,4 +1,4 @@
-const db = require("../data/dbConfig")
+const db = require("../../data/dbConfig")
 
 function find() {
   return db("topics")

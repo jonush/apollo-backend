@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const router = require("express").Router();
 
-const Users = require("../users/users-model");
-const { isValid } = require('../users/users-service');
+const Users = require("../api/users/users-model");
+const { isValid } = require('../api/users/users-service');
 const hidden = require('./vars');
 
 // POST to create a new user

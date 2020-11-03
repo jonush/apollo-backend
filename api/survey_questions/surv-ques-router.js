@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const restricted = require('../auth/auth-middleware');
-const SurveyQuestions = require("../survey_questions/surv-ques-model");
+const restricted = require('../../auth/auth-middleware');
+const SurveyQuestions = require("./surv-ques-model");
 
 // GET all survey questions
 router.get("/", restricted, (req, res) => {

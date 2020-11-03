@@ -1,4 +1,4 @@
-const db = require("../data/dbConfig");
+const db = require("../../data/dbConfig");
 
 function find() {
   return db("questions")
@@ -11,7 +11,7 @@ function findByID(id) {
     .where("questions.id", id)
     .first()
     .select("*")
-    .orderBy("id")
+    .orderBy("questions.id")
 }
 
 function findByTopicID(topicID) {

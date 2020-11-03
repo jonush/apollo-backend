@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const restricted = require('../auth/auth-middleware');
-const Topics = require("../topics/topics-model");
+const restricted = require('../../auth/auth-middleware');
+const Topics = require("./topics-model");
 
 // GET all topics
 router.get("/", restricted, (req, res) => {
