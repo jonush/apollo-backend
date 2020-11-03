@@ -9,7 +9,7 @@ router.get("/", restricted, (req, res) => {
       res.status(200).json({ data: surveys })
     })
     .catch(err => {
-      console.log("GET /", err);
+      console.log("GET /surveys/", err);
       res.status(500).json({ error: err.message });
     })
 });
@@ -27,12 +27,12 @@ router.get("/:id", restricted, (req,res) => {
       }
     })
     .catch(err => {
-      console.log("GET /:id", err);
+      console.log("GET /surveys/:id", err);
       res.status(500).json({ error: err.message });
     })
 });
 
-// GET all surveys by a leader id
+// GET all surveys by a topic id
 router.get("/topic/:id", restricted, (req,res) => {
   const { id } = req.params;
 
@@ -45,7 +45,7 @@ router.get("/topic/:id", restricted, (req,res) => {
       }
     })
     .catch(err => {
-      console.log("GET /topic/:id", err);
+      console.log("GET /surveys/topic/:id", err);
       res.status(500).json({ error: err.message });
     })
 });
@@ -62,7 +62,7 @@ router.post("/", restricted, (req, res) => {
         res.status(201).json({ data: newSurvey })
       })
       .catch(err => {
-        console.log("POST /", err);
+        console.log("POST /surveys/", err);
         res.status(500).json({ error: "Unable to creat the survey. Please try again." });
       })
   }
@@ -81,7 +81,7 @@ router.put("/:id", restricted, (req, res) => {
             res.status(200).json({ data: updatedSurvey });
           })
           .catch(err => {
-            console.log('PUT /:id', err);
+            console.log('PUT /surveys/:id', err);
             res.status(400).json({ error: "Unable to update the survey. PLease try again." });
           })
       } else {
@@ -89,7 +89,7 @@ router.put("/:id", restricted, (req, res) => {
       }
     })
     .catch(err => {
-      console.log('PUT /:id', err);
+      console.log('PUT /surveys/:id', err);
       res.status(500).json({ error: "Error occurred while updating the survey", err });
     })
 });
@@ -107,12 +107,12 @@ router.delete("/:id", restricted, (req, res) => {
           res.status(200).json({ message: `The survey with ID: ${id} was successfully deleted.` });
         })
         .catch(err => {
-          console.log("DELETE /:id", err);
-          res.status(500).json({ error: "There was an error when deleting the issue. Please try again." });
+          console.log("DELETE /surveys/:id", err);
+          res.status(500).json({ error: "There was an error when deleting the survey. Please try again." });
         })
     })
     .catch(err => {
-      console.log("DELETE /:id", err);
+      console.log("DELETE /surveys/:id", err);
       res.status(400).json({ error: `The survey with ID: ${id} could not be found.` });
     })
 });

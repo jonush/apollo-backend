@@ -15,6 +15,7 @@ exports.up = function(knex) {
         .notNullable()
         .unique()
         .index()
+      tbl.timestamps(true, true)
     })
 
     .createTable("topics", tbl => {
@@ -57,9 +58,13 @@ exports.up = function(knex) {
         .inTable("users")
         .onUpdate("CASCADE")
         .onDelete("CASCADE")
+      tbl.string("role")
+        .notNullable()
+        .defaultTo("user")
+      tbl.timestamps(true, true)
     })
 
-    .createTable("survey_requests", tbl => {
+    .createTable("surveys", tbl => {
       tbl.increments("id")
         .primary()
         .notNullable()
@@ -79,11 +84,11 @@ exports.up = function(knex) {
       tbl.increments("id")
         .primary()
         .notNullable()
-      tbl.integer("survey_id")
+      tbl.integer("topic_id")
         .unsigned()
         .notNullable()
         .references("id")
-        .inTable("survey_requests")
+        .inTable("topics")
         .onUpdate("CASCADE")
         .onDelete("CASCADE")
       tbl.string("type")
@@ -93,6 +98,30 @@ exports.up = function(knex) {
         .defaultTo("text")
       tbl.string("question")
         .notNullable()
+      tbl.boolean("default")
+        .defaultTo(false)
+      tbl.timestamps(true, true)
+    })
+
+    .createTable("survey_questions", tbl => {
+      tbl.increments("id")
+        .primary()
+        .notNullable()
+      tbl.integer("survey_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("surveys")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE")
+      tbl.integer("question_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("questions")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE")
+      tbl.timestamps(true, true)
     })
 
     .createTable("responses", tbl => {
@@ -117,7 +146,7 @@ exports.up = function(knex) {
         .unsigned()
         .notNullable()
         .references("id")
-        .inTable("survey_requests")
+        .inTable("surveys")
         .onUpdate("CASCADE")
         .onDelete("CASCADE")
       tbl.string("response")
@@ -150,11 +179,11 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
-    .dropTableIfExists("users")
-    .dropTableIfExists("topics")
-    .dropTableIfExists("topic_members")
-    .dropTableIfExists("survey_requests")
-    .dropTableIfExists("questions")
-    .dropTableIfExists("responses")
-    .dropTableIfExists("comments")
+  .dropTableIfExists("comments")
+  .dropTableIfExists("responses")
+  .dropTableIfExists("questions")
+  .dropTableIfExists("surveys")
+  .dropTableIfExists("topic_members")
+  .dropTableIfExists("topics")
+  .dropTableIfExists("users")
 };

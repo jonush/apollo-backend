@@ -1,14 +1,14 @@
 const db = require("../data/dbConfig");
 
 function find() {
-  return db("survey_requests")
+  return db("surveys")
     .select("*")
-    .orderBy("survey_requests.id")
+    .orderBy("surveys.id")
 }
 
 function findByID(id) {
-  return db("survey_requests")
-    .where("survey_requests.id", id)
+  return db("surveys")
+    .where("surveys.id", id)
     .first()
     .select("*")
     .orderBy("id")
@@ -17,13 +17,13 @@ function findByID(id) {
 function findByTopicID(topicID) {
   return db("topics")
     .where("topics.id", topicID)
-    .join("survey_requests", "survey_requests.topic_id", "topics.id")
+    .join("surveys", "surveys.topic_id", "topics.id")
     .select("*")
-    .orderBy("survey_requests.id")
+    .orderBy("surveys.id")
 }
 
 function add(survey) {
-  return db("survey_requests")
+  return db("surveys")
     .insert(survey, "id")
     .then(ids => {
       return findByID(ids[0])
@@ -32,7 +32,7 @@ function add(survey) {
 }
 
 function edit(survey, id) {
-  return db("survey_requests")
+  return db("surveys")
     .where({ id })
     .update(survey)
     .then(() => {
@@ -42,7 +42,7 @@ function edit(survey, id) {
 }
 
 function remove(id) {
-  return db("survey_requests")
+  return db("surveys")
     .where({ id })
     .del()
 }

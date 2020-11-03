@@ -9,7 +9,7 @@ router.get("/", restricted, (req, res) => {
       res.status(200).json({ data: topics })
     })
     .catch(err => {
-      console.log("GET /", err);
+      console.log("GET /topics/", err);
       res.status(500).json({ error: err.message });
     })
 });
@@ -27,7 +27,7 @@ router.get("/:id", restricted, (req,res) => {
       }
     })
     .catch(err => {
-      console.log("GET /:id", err);
+      console.log("GET /topics/:id", err);
       res.status(500).json({ error: err.message });
     })
 });
@@ -45,7 +45,7 @@ router.get("/leader/:id", restricted, (req,res) => {
       }
     })
     .catch(err => {
-      console.log("GET /leader/:id", err);
+      console.log("GET /topics/leader/:id", err);
       res.status(500).json({ error: err.message });
     })
 });
@@ -62,7 +62,7 @@ router.post("/", restricted, (req, res) => {
         res.status(201).json({ data: newTopic })
       })
       .catch(err => {
-        console.log("POST /", err);
+        console.log("POST /topics/", err);
         res.status(500).json({ error: "Unable to creat the topic. Please try again." });
       })
   }
@@ -81,7 +81,7 @@ router.put("/:id", restricted, (req, res) => {
             res.status(200).json({ data: updatedTopic });
           })
           .catch(err => {
-            console.log('PUT /:id', err);
+            console.log('PUT /topics/:id', err);
             res.status(400).json({ error: "Unable to update the topic. PLease try again." });
           })
       } else {
@@ -89,7 +89,7 @@ router.put("/:id", restricted, (req, res) => {
       }
     })
     .catch(err => {
-      console.log('PUT /:id', err);
+      console.log('PUT /topics/:id', err);
       res.status(500).json({ error: "Error occurred while updating the topic", err });
     })
 });
@@ -107,8 +107,8 @@ router.delete("/:id", restricted, (req, res) => {
           res.status(200).json({ message: `The topic: ${topic.title} was successfully deleted.` });
         })
         .catch(err => {
-          console.log("DELETE /:id", err);
-          res.status(500).json({ error: "There was an error when deleting the issue. PLease try again." });
+          console.log("DELETE /topics/:id", err);
+          res.status(500).json({ error: "There was an error when deleting the topic. PLease try again." });
         })
     })
     .catch(err => {
