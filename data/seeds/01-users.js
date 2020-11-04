@@ -8,19 +8,19 @@ exports.seed = function (knex) {
         {
           first_name: "John",
           last_name: "Doe",
-          password: "password",
+          password: "test",
           email: "john@gmail.com",
         },
         {
           first_name: "Jane",
           last_name: "Doe",
-          password: "password",
+          password: "test",
           email: "jane@gmail.com",
         },
         {
           first_name: "Jimmy",
           last_name: "Doe",
-          password: "password",
+          password: "test",
           email: "jimmy@gmail.com",
         },
       ]);
