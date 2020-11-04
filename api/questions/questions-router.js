@@ -99,7 +99,7 @@ router.put("/:id", restricted, (req, res) => {
           })
           .catch(err => {
             console.log('PUT /questions/:id', err);
-            res.status(400).json({ error: "Unable to update the question. PLease try again." });
+            res.status(400).json({ error: "Unable to update the question. Please try again." });
           })
       } else {
         res.status(404).json({ error: `Unable to find a question with id: ${id}` });

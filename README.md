@@ -951,14 +951,23 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /survey-questions</summary>
 
-  [Create a new survey question]
+  [Create a new survey question. The database will create the question first if it noes not yet exist in the database.]
 
   Expected Request Body:
 
   ```JSON
   {
-    "survey_id": 1,
-    "question_id": 1
+    "sq": {
+      "survey_id": 1,
+      // if no question_id is provided, question will first be created
+      "question_id": 1
+    },
+    "question": { // needed so that the db can create the question before creating the survey question if the question does not yet exist
+      "topic_id": 1,
+      "type": "request",
+      "style": "text",
+      "question": "What is our current priority?"
+    }
   }
   ```
   
@@ -967,14 +976,17 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   ```JSON
   {
     "data": {
-      "topic_id": 1,
+      "id": 1,
       "survey_id": 1,
       "question_id": 1,
-      "type": "context",
+      "created_at": "2020-11-04 22:37:50",
+      "updated_at": "2020-11-04 22:37:50",
+      "topic_id": 1,
+      "type": "request",
       "style": "text",
       "question": "What is our current priority?",
-      "default": 1
-    },
+      "default": 0
+    }
   }
   ```
 

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const restricted = require('../../auth/auth-middleware');
 const SurveyQuestions = require("./surv-ques-model");
+const Questions = require("../questions/questions-model");
 
 // GET all survey questions
 router.get("/", restricted, (req, res) => {
@@ -50,26 +51,50 @@ router.get("/survey/:id", restricted, (req,res) => {
     })
 });
 
-// check if the survey question exists in the question table
-// if not, create the question
-// then create the survey question using the returned question_id from the response
-
 // POST a new survey question
 router.post("/", restricted, (req, res) => {
-  let question = req.body;
-
-  if(req.body.survey_id === "" || req.body.question_id === "") {
-    res.status(400).json({ error: "Missing survey id or question id" });
-  } else {
-    SurveyQuestions.add(question)
-      .then(newQuestion => {
-        res.status(201).json({ data: newQuestion })
-      })
-      .catch(err => {
-        console.log("POST /survey-questions", err);
-        res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
-      })
-  }
+  let surveyQuestion = req.body.sq;
+  let newQuestion = req.body.question;
+  
+  // check if the survey question exists in the question table
+  Questions.findByID(surveyQuestion.question_id)
+    // then create the survey question using the returned question_id from the response
+    .then(() => {
+      if(surveyQuestion.survey_id === "") {
+        res.status(400).json({ error: "Missing survey id" });
+      } else {
+        SurveyQuestions.add(surveyQuestion)
+        .then(newQuestion => {
+          res.status(201).json({ data: newQuestion })
+        })
+        .catch(err => {
+          console.log("POST /survey-questions", err);
+          res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
+        })
+      }
+    })
+    // if not, create the question
+    .catch(() => {
+      if(newQuestion.question) {
+        Questions.add(newQuestion)
+          .then(q => {
+            SurveyQuestions.add({ survey_id: surveyQuestion.survey_id, question_id: q.id })
+              .then(newQuestion => {
+                res.status(201).json({ data: newQuestion });
+              })
+              .catch(err => {
+                console.log("POST /survey-questions", err);
+                res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
+              })
+          })
+          .catch(err => {
+            console.log("POST /survey-questions", err);
+            res.status(500).json({ error: "There was an error creating the question. Please try again." })
+          })
+      } else {
+        res.status(500).json({ error: "Unable to create the survey question because there was an error with the question." })
+      }
+    })
 });
 
 // EDIT a survey question
@@ -86,7 +111,7 @@ router.put("/:id", restricted, (req, res) => {
           })
           .catch(err => {
             console.log('PUT /survey-questions/:id', err);
-            res.status(400).json({ error: "Unable to update the survey question. PLease try again." });
+            res.status(400).json({ error: "Unable to update the survey question. Please try again." });
           })
       } else {
         res.status(404).json({ error: `Unable to find a survey question with id: ${id}` });
