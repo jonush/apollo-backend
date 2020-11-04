@@ -16,9 +16,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>POST [Creates a new user for Apollo]</summary>
+  <summary>POST to /register</summary>
 
-  `POST` to `BASE_URL/register`
+  [Creates a new user for Apollo]
 
   Expected Request body:
 
@@ -51,9 +51,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>POST [Log in to Apollo with verified credentials]</summary>
+  <summary>POST to /login</summary>
 
-  `POST` to `BASE_URL/login`
+  [Log in to Apollo with verified credentials]
 
   Expected Request body:
 
@@ -87,9 +87,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch all topics]</summary>
+  <summary>GET /topics</summary>
 
-  `GET` `BASE_URL/topics`
+  [Fetch all topics]
   
   Response:
 
@@ -131,9 +131,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch a topic by ID]</summary>
+  <summary>GET /topics/:id</summary>
 
-  `GET` `BASE_URL/topics/:id`
+  [Fetch a topic by ID]
   
   Response:
 
@@ -155,9 +155,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch all topics by a leader ID]</summary>
+  <summary>GET /topics/leader/:id</summary>
 
-  `GET` `BASE_URL/topics/leader/:id`
+  [Fetch all topics by a leader ID]
   
   Response:
 
@@ -190,9 +190,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>POST [Create a new topic]</summary>
+  <summary>POST /topics</summary>
 
-  `POST` `BASE_URL/topics`
+  [Create a new topic]
 
   Expected Request Body:
 
@@ -225,9 +225,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>PUT [Edit a topic]</summary>
+  <summary>PUT /topics/:id</summary>
 
-  `PUT` `BASE_URL/topics/:id`
+  [Edit a topic]
 
   Expected Request Body:
 
@@ -260,9 +260,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>DELETE [Delete a topic]</summary>
+  <summary>DELETE /topics/:id</summary>
 
-  `DELETE` `BASE_URL/topics/:id`
+  [Delete a topic]
   
   Response:
 
@@ -278,9 +278,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch all topic members]</summary>
+  <summary>GET /topic-members</summary>
 
-  `GET` `BASE_URL/topic-members`
+  [Fetch all topic members]
   
   Response:
 
@@ -311,9 +311,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch a topic member by id]</summary>
+  <summary>GET /topic-members/members/:id</summary>
 
-  `GET` `BASE_URL/topic-members/members/:id`
+  [Fetch a topic member by id]
   
   Response:
 
@@ -334,9 +334,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch all topic members by a topic id]</summary>
+  <summary>GET /topic-members/:id</summary>
 
-  `GET` `BASE_URL/topic-members/:id`
+  [Fetch all topic members by a topic id]
   
   Response:
 
@@ -367,9 +367,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>POST [Create a new topic member]</summary>
+  <summary>POST /topic-members</summary>
 
-  `POST` `BASE_URL/topic-members`
+  [Creates a new topic-member]
 
   Expected Request Body:
 
@@ -400,9 +400,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>PUT [Edit a topic member]</summary>
+  <summary>PUT /topic-members/:id</summary>
 
-  `PUT` `BASE_URL/topic-members/:id`
+  [Edit a topic member. Can be used to change member roles/privileges]
 
   Expected Request Body:
 
@@ -433,9 +433,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>DELETE [Delete a topic member]</summary>
+  <summary>DELETE /topic-members/:id</summary>
 
-  `DELETE` `BASE_URL/topic-members/:id`
+  [Delete a topic member. Can be used to remove a user from a topic]
   
   Response:
 
@@ -451,9 +451,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch all surveys]</summary>
+  <summary>GET /surveys</summary>
 
-  `GET` `BASE_URL/surveys`
+  [Fetch all surveys]
   
   Response:
 
@@ -482,9 +482,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch a survey by ID]</summary>
+  <summary>GET /surveys/:id</summary>
 
-  `GET` `BASE_URL/surveys/:id`
+  [Fetch a survey by ID]
   
   Response:
 
@@ -504,9 +504,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch all surveys by a topic ID]</summary>
+  <summary>GET /surveys/topic/:id</summary>
 
-  `GET` `BASE_URL/surveys/topic/:id`
+  [Fetch all surveys by a topic ID]
   
   Response:
 
@@ -543,9 +543,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>POST [Create a new survey]</summary>
+  <summary>POST /surveys</summary>
 
-  `POST` `BASE_URL/surveys`
+  [Create a new survey]
 
   Expected Request Body:
 
@@ -574,9 +574,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>PUT [Edit a survey]</summary>
+  <summary>PUT /surveys/:id</summary>
 
-  `PUT` `BASE_URL/surveys/:id`
+  [Edit a survey]
 
   Expected Request Body:
 
@@ -605,9 +605,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>DELETE [Delete a survey]</summary>
+  <summary>DELETE /surveys/:id</summary>
 
-  `DELETE` `BASE_URL/surveys/:id`
+  [Delete a survey]
   
   Response:
 
@@ -623,9 +623,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 <details>
 
-  <summary>GET [Fetch all questions]</summary>
+  <summary>GET /questions</summary>
 
-  `GET` `BASE_URL/questions`
+  [Fetch all questions]
   
   Response:
 
