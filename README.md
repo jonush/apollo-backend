@@ -1,6 +1,6 @@
 # Apollo API
 
-The Base URL: [https://apollo-be-api.herokuapp.com/]([https:google.com](https://apollo-be-api.herokuapp.com))
+The Base URL: [https://apollo-be-api.herokuapp.com/](https://apollo-be-api.herokuapp.com)
 
 The Database Design Schema: [DBDesigner](https://dbdesigner.page.link/msEfnXD14kH4NtQh9)
 
