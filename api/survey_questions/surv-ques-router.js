@@ -50,6 +50,10 @@ router.get("/survey/:id", restricted, (req,res) => {
     })
 });
 
+// check if the survey question exists in the question table
+// if not, create the question
+// then create the survey question using the returned question_id from the response
+
 // POST a new survey question
 router.post("/", restricted, (req, res) => {
   let question = req.body;

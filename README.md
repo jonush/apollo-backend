@@ -263,7 +263,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  The topic with ID: 4 was successfully deleted.
+  "The topic with ID: 4 was successfully deleted."
   ```
 
 </details>
@@ -434,7 +434,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  The topic member with ID: 2 was removed.
+  "The topic member with ID: 2 was removed."
   ```
 
 </details>
@@ -604,7 +604,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  The survey with ID: 4 was successfully deleted.
+  "The survey with ID: 4 was successfully deleted."
   ```
 
 </details>
@@ -644,6 +644,785 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
         },
     ]
   }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /questions/:id</summary>
+
+  [Fetch a question by id]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "topic_id": 1,
+      "type": "context",
+      "style": "text",
+      "question": "What is our current priority?",
+      "default": 1,
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /questions/topic/:id</summary>
+
+  [Fetch all questions by a topic id]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "What is our current priority?",
+        "default": 1
+      }
+      {
+        "topic_id": 1,
+        "type": "request",
+        "style": "text",
+        "question": "What are you working on?",
+        "default": 1
+      },
+      {
+        "topic_id": 1,
+        "type": "request",
+        "style": "text",
+        "question": "What will you work on?",
+        "default": 1
+      },
+      {
+        "topic_id": 1,
+        "type": "request",
+        "style": "text",
+        "question": "Do you have any blockers?",
+        "default": 1
+      }
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /questions/topic/:id/default</summary>
+
+  [Fetch all default questions by a topic id. Default questions are preset when creating a topic and will be initialized with every new survey. Changing default questions will cause all new surveys to be created with the newly selected questions.]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "What is our current priority?",
+        "default": 1
+      }
+      {
+        "topic_id": 1,
+        "type": "request",
+        "style": "text",
+        "question": "What are you working on?",
+        "default": 1
+      },
+      {
+        "topic_id": 1,
+        "type": "request",
+        "style": "text",
+        "question": "What will you work on?",
+        "default": 1
+      },
+      {
+        "topic_id": 1,
+        "type": "request",
+        "style": "text",
+        "question": "Do you have any blockers?",
+        "default": 1
+      }
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>POST /questions</summary>
+
+  [Create a new question]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "topic_id": 1,
+    "type": "request",
+    "style": "rating",
+    "question": "How are you feeling after this week?"
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "topic_id": 1,
+      "type": "request",
+      "style": "rating",
+      "question": "How are you feeling after this week?",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>PUT /questions/:id</summary>
+
+  [Edit a question]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "style": "text",
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "topic_id": 1,
+      "type": "request",
+      "style": "text",
+      "question": "How are you feeling after this week?",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-04 19:13:21"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>DELETE /questions/:id</summary>
+
+  [Delete a question]
+  
+  Response:
+
+  ```JSON
+  "The question with ID: 1 was successfully deleted."
+  ```
+
+</details>
+
+## Survey Questions
+
+<details>
+
+  <summary>GET /survey-questions</summary>
+
+  [Get all survey questions]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "id": 1,
+        "survey_id": 1,
+        "question_id": 1,
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47",
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "What is our current priority?",
+        "default": 1
+      },
+      {
+        "id": 2,
+        "survey_id": 1,
+        "question_id": 6,
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47",
+        "topic_id": 1,
+        "type": "request",
+        "style": "text",
+        "question": "Do you have any blockers?",
+        "default": 1
+      }
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /survey-questions/:id</summary>
+
+  [Get a survey question by id]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "topic_id": 1,
+      "type": "context",
+      "style": "text",
+      "question": "What is our current priority?",
+      "default": 1,
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /survey-questions/survey/:id</summary>
+
+  [Get a survey question by a survey id]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "topic_id": 1,
+        "survey_id": 1,
+        "question_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "What is our current priority?",
+        "default": 1
+      },
+      {
+        "topic_id": 1,
+        "survey_id": 1,
+        "question_id": 2,
+        "type": "context",
+        "style": "text",
+        "question": "When is the next deadline?",
+        "default": 1
+      },
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>POST /survey-questions</summary>
+
+  [Create a new survey question]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "survey_id": 1,
+    "question_id": 1
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "topic_id": 1,
+      "survey_id": 1,
+      "question_id": 1,
+      "type": "context",
+      "style": "text",
+      "question": "What is our current priority?",
+      "default": 1
+    },
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>PUT /survey-questions/:id</summary>
+
+  [Edit a survey question]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "survey_id": 1,
+    "question_id": 2
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "topic_id": 1,
+      "survey_id": 1,
+      "question_id": 2,
+      "type": "context",
+      "style": "text",
+      "question": "When is the next deadline?",
+      "default": 1
+    },
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>DELETE /survey-questions/:id</summary>
+
+  [Delete a survey question]
+  
+  Response:
+
+  ```JSON
+  "The survey question with ID: 1 was successfully deleted."
+  ```
+
+</details>
+
+## Responses
+
+<details>
+
+  <summary>GET /responses</summary>
+
+  [Fetch all responses. The response JSON object will return the response, the question, and the user that responded.]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "id": 1,
+        "question_id": 1,
+        "user_id": 1,
+        "survey_id": 1,
+        "response": "Finishing the release 1 deliverables.",
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47",
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "What is our current priority?",
+        "default": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@gmail.com"
+      },
+      {
+        "id": 2,
+        "question_id": 2,
+        "user_id": 1,
+        "survey_id": 1,
+        "response": "Friday of this week.",
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47",
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "When is the next deadline?",
+        "default": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@gmail.com"
+      },
+      {
+        "id": 3,
+        "question_id": 3,
+        "user_id": 1,
+        "survey_id": 1,
+        "response": "We added a new member to our team!",
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47",
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "Are there any announcements for the team?",
+        "default": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@gmail.com"
+      }
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /responses/:id</summary>
+
+  [Get a response by id]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "question_id": 1,
+      "user_id": 1,
+      "survey_id": 1,
+      "response": "Finishing the release 1 deliverables.",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47",
+      "topic_id": 1,
+      "type": "context",
+      "style": "text",
+      "question": "What is our current priority?",
+      "default": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john@gmail.com"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /responses/survey/:id</summary>
+
+  [Get all responses by a survey id]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "id": 1,
+        "question_id": 1,
+        "user_id": 1,
+        "survey_id": 1,
+        "response": "Finishing the release 1 deliverables.",
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47",
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "What is our current priority?",
+        "default": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@gmail.com"
+      },
+      {
+        "id": 1,
+        "question_id": 1,
+        "user_id": 2,
+        "survey_id": 1,
+        "response": "Finishing the back end API.",
+        "created_at": "2020-11-04 13:53:17",
+        "updated_at": "2020-11-04 13:53:17",
+        "topic_id": 1,
+        "type": "context",
+        "style": "text",
+        "question": "What is our current priority?",
+        "default": 1,
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "email": "jane@gmail.com"
+      },
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>POST /responses</summary>
+
+  [Create a new response]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "question_id": 1,
+    "user_id": 2,
+    "survey_id": 1,
+    "response": "Finishing up the back end API."
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "question_id": 1,
+      "user_id": 2,
+      "survey_id": 1,
+      "response": "Finishing up the back end API.",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47",
+      "topic_id": 1,
+      "type": "context",
+      "style": "text",
+      "question": "What is our current priority?",
+      "default": 1,
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane@gmail.com"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>PUT /responses/:id</summary>
+
+  [Edit a response]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "question_id": 1,
+    "user_id": 2,
+    "survey_id": 1,
+    "response": "Finishing up the UI components."
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "question_id": 1,
+      "user_id": 2,
+      "survey_id": 1,
+      "response": "Finishing up the UI components.",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-04 12:48:19",
+      "topic_id": 1,
+      "type": "context",
+      "style": "text",
+      "question": "What is our current priority?",
+      "default": 1,
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane@gmail.com"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>DELETE /responses/:id</summary>
+
+  [Delete a response]
+  
+  Response:
+
+  ```JSON
+  "The response with ID: 1 was successfully deleted."
+  ```
+
+</details>
+
+## Comments
+
+<details>
+
+  <summary>GET /comments</summary>
+
+  [Fetch all comments]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "response_id": 5,
+        "comment": "Are you following the most recent wire frames?",
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47"
+      },
+      {
+        "id": 2,
+        "user_id": 2,
+        "response_id": 5,
+        "comment": "Yes, the ones delivered on Monday?",
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47"
+      },
+      {
+        "id": 3,
+        "user_id": 2,
+        "response_id": 5,
+        "comment": "I got them from Jimmy",
+        "created_at": "2020-11-03 23:33:47",
+        "updated_at": "2020-11-03 23:33:47"
+      }
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /comments/:id</summary>
+
+  [Fetch a comment by id]
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "user_id": 1,
+      "response_id": 5,
+      "comment": "Are you following the most recent wire frames?",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>POST /comments</summary>
+
+  [Create a new comment]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "user_id": 1,
+    "response_id": 5,
+    "comment": "Awesome! Keep up the great work.",
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "user_id": 1,
+      "response_id": 5,
+      "comment": "Awesome! Keep up the great work.",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>PUT /comments/:id</summary>
+
+  [Edit a comment]
+
+  Expected Request Body:
+
+  ```JSON
+  {
+    "user_id": 1,
+    "response_id": 5,
+    "comment": "Do you have any questions?",
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  {
+    "data": {
+      "id": 1,
+      "user_id": 1,
+      "response_id": 5,
+      "comment": "Do you have any questions?",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47"
+    }
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>DELETE /comments/:id</summary>
+
+  [Delete a comment]
+  
+  Response:
+
+  ```JSON
+  "The comment with ID: 1 was successfully deleted."
   ```
 
 </details>
