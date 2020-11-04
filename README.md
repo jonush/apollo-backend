@@ -8,8 +8,6 @@ PostMan Collection of API Endpoints: [Endpoints](https://www.getpostman.com/coll
 
 The API includes various endpoints to handle all features of the Apollo application. The API handles user account creation and offers different account roles for control over Apollo. The back end server was built using Node, Knex, and express. Authentication was handled using JSON Web Tokens. The deployed application can be found [here](https://google.com).
 
-<hr>
-
 ## Authentication
 
 The Apollo API uses JWT for authentication. After creating an account and logging in with credentials, a JWT will be generated.
@@ -80,8 +78,6 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   ```
 
 </details>
-
-<hr>
 
 ## Topics
 
@@ -272,8 +268,6 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 </details>
 
-<hr>
-
 ## Topic Members
 
 <details>
@@ -445,8 +439,6 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 </details>
 
-<hr>
-
 ## Surveys
 
 <details>
@@ -617,8 +609,6 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
 </details>
 
-<hr>
-
 ## Questions
 
 <details>
@@ -657,5 +647,3 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   ```
 
 </details>
-
-<hr>
