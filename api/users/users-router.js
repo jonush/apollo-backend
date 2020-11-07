@@ -8,4 +8,6 @@ router.get("/", restricted, (req, res) => {
     .catch((err) => res.send(err));
 });
 
+// ADD USER ENDPOINTS
+
 module.exports = router;
