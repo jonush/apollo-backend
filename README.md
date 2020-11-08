@@ -10,7 +10,7 @@ The API includes various endpoints to handle all features of the Apollo applicat
 
 ## Authentication
 
-The Apollo API uses JWT for authentication. After creating an account and logging in with credentials, a JWT will be generated.
+The Apollo API uses JWT for authentication. After creating an account and logging in with credentials, a JWT will be auto-generated.
 
 <details>
 
