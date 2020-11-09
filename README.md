@@ -1,5 +1,7 @@
 # Apollo API
 
+This is the backend branch where the Apollo API is located and hosted.
+
 The Base URL: [https://apollo-be-api.herokuapp.com/](https://apollo-be-api.herokuapp.com)
 
 The Database Design Schema: [DBDesigner](https://dbdesigner.page.link/msEfnXD14kH4NtQh9)
