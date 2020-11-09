@@ -59,7 +59,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     Responses.add(response)
       .then(newResponse => {
-        res.status(201).json({ data: newResponse })
+        res.status(201).json({ message: `SUCCESS: Response with ID: ${newResponse.id} created.` })
       })
       .catch(err => {
         console.log("POST /responses", err);
@@ -78,11 +78,11 @@ router.put("/:id", restricted, (req, res) => {
       if(response) {
         Responses.edit(update, id)
           .then(updatedResponse => {
-            res.status(200).json({ data: updatedResponse });
+            res.status(200).json({ message: `SUCCESS: Response with ID: ${updatedResponse.id} updated.` });
           })
           .catch(err => {
             console.log('PUT /responses/:id', err);
-            res.status(400).json({ error: "Unable to update the response. PLease try again." });
+            res.status(400).json({ error: "Unable to update the response. Please try again." });
           })
       } else {
         res.status(404).json({ error: `Unable to find a response with id: ${id}` });
@@ -104,7 +104,7 @@ router.delete("/:id", restricted, (req, res) => {
       Responses.remove(response.id)
         .then(removed => {
           console.log(removed);
-          res.status(200).json({ message: `The response with ID: ${id} was successfully deleted.` });
+          res.status(200).json({ message: `SUCCESS: Response with ID: ${id} deleted.` });
         })
         .catch(err => {
           console.log("DELETE /responses/:id", err);

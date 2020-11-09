@@ -59,7 +59,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     Comments.add(comment)
       .then(newComment => {
-        res.status(201).json({ data: newComment })
+        res.status(201).json({ message: `SUCCESS: Comment with ID: ${newComment.id} created.` })
       })
       .catch(err => {
         console.log("POST /comments", err);
@@ -78,11 +78,11 @@ router.put("/:id", restricted, (req, res) => {
       if(comment) {
         Comments.edit(update, id)
           .then(updatedComment => {
-            res.status(200).json({ data: updatedComment });
+            res.status(200).json({ message: `SUCCESS: Comment with ID: ${updatedComment.id} updated.` });
           })
           .catch(err => {
             console.log('PUT /comments/:id', err);
-            res.status(400).json({ error: "Unable to update the comment. PLease try again." });
+            res.status(400).json({ error: "Unable to update the comment. Please try again." });
           })
       } else {
         res.status(404).json({ error: `Unable to find a comment with id: ${id}` });
@@ -104,7 +104,7 @@ router.delete("/:id", restricted, (req, res) => {
       Comments.remove(question.id)
         .then(removed => {
           console.log(removed);
-          res.status(200).json({ message: `The comment with ID: ${id} was successfully deleted.` });
+          res.status(200).json({ message: `SUCCESS: Comment with ID: ${id} deleted.` });
         })
         .catch(err => {
           console.log("DELETE /comments/:id", err);

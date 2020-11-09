@@ -59,11 +59,11 @@ router.post("/", restricted, (req, res) => {
   } else {
     Surveys.add(survey)
       .then(newSurvey => {
-        res.status(201).json({ data: newSurvey })
+        res.status(201).json({ message: `SUCCESS: Survey with ID: ${newSurvey.id} created.` })
       })
       .catch(err => {
         console.log("POST /surveys/", err);
-        res.status(500).json({ error: "Unable to creat the survey. Please try again." });
+        res.status(500).json({ error: "Unable to create the survey. Please try again." });
       })
   }
 });
@@ -78,11 +78,11 @@ router.put("/:id", restricted, (req, res) => {
       if(survey) {
         Surveys.edit(update, id)
           .then(updatedSurvey => {
-            res.status(200).json({ data: updatedSurvey });
+            res.status(200).json({ message: `SUCCESS: Survey with ID: ${updatedSurvey.id} updated.` });
           })
           .catch(err => {
             console.log('PUT /surveys/:id', err);
-            res.status(400).json({ error: "Unable to update the survey. PLease try again." });
+            res.status(400).json({ error: "Unable to update the survey. Please try again." });
           })
       } else {
         res.status(404).json({ error: `Unable to find a survey with id: ${id}` });
@@ -104,7 +104,7 @@ router.delete("/:id", restricted, (req, res) => {
       Surveys.remove(survey.id)
         .then(removed => {
           console.log(removed);
-          res.status(200).json({ message: `The survey with ID: ${id} was successfully deleted.` });
+          res.status(200).json({ message: `SUCCESS: Survey with ID: ${id} deleted.` });
         })
         .catch(err => {
           console.log("DELETE /surveys/:id", err);

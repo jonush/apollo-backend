@@ -65,7 +65,7 @@ router.post("/", restricted, (req, res) => {
       } else {
         SurveyQuestions.add(surveyQuestion)
         .then(newQuestion => {
-          res.status(201).json({ data: newQuestion })
+          res.status(201).json({ message: `SUCCESS: Survey Question with ID: ${newQuestion.id} created.` })
         })
         .catch(err => {
           console.log("POST /survey-questions", err);
@@ -80,7 +80,7 @@ router.post("/", restricted, (req, res) => {
           .then(q => {
             SurveyQuestions.add({ survey_id: surveyQuestion.survey_id, question_id: q.id })
               .then(newQuestion => {
-                res.status(201).json({ data: newQuestion });
+                res.status(201).json({ message: `SUCCESS: Survey Question with ID: ${newQuestion.id} created.` });
               })
               .catch(err => {
                 console.log("POST /survey-questions", err);
@@ -107,7 +107,7 @@ router.put("/:id", restricted, (req, res) => {
       if(question) {
         SurveyQuestions.edit(update, id)
           .then(updatedQuestion => {
-            res.status(200).json({ data: updatedQuestion });
+            res.status(200).json({ message: `SUCCESS: Survey Question with ID: ${updatedQuestion.id} updated.` });
           })
           .catch(err => {
             console.log('PUT /survey-questions/:id', err);
@@ -133,7 +133,7 @@ router.delete("/:id", restricted, (req, res) => {
       SurveyQuestions.remove(question.id)
         .then(removed => {
           console.log(removed);
-          res.status(200).json({ message: `The survey question with ID: ${id} was successfully deleted.` });
+          res.status(200).json({ message: `SUCCESS: Survey Question with ID: ${id} deleted.` });
         })
         .catch(err => {
           console.log("DELETE /survey-questions/:id", err);

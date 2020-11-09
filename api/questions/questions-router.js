@@ -76,7 +76,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     Questions.add(question)
       .then(newQuestion => {
-        res.status(201).json({ data: newQuestion })
+        res.status(201).json({message: `SUCCESS: Question with ID: ${newQuestion.id} created.` })
       })
       .catch(err => {
         console.log("POST /questions", err);
@@ -95,7 +95,7 @@ router.put("/:id", restricted, (req, res) => {
       if(question) {
         Questions.edit(update, id)
           .then(updatedQuestion => {
-            res.status(200).json({ data: updatedQuestion });
+            res.status(200).json({ message: `SUCCESS: Question with ID: ${updatedQuestion.id} updated.` });
           })
           .catch(err => {
             console.log('PUT /questions/:id', err);
@@ -121,7 +121,7 @@ router.delete("/:id", restricted, (req, res) => {
       Questions.remove(question.id)
         .then(removed => {
           console.log(removed);
-          res.status(200).json({ message: `The question with ID: ${id} was successfully deleted.` });
+          res.status(200).json({ message: `SUCCESS: The question with ID: ${id} deleted.` });
         })
         .catch(err => {
           console.log("DELETE /questions/:id", err);

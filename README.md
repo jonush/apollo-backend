@@ -16,7 +16,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST to /register</summary>
 
-  [Creates a new user for Apollo]
+  Creates a new user for Apollo
 
   Expected Request body:
 
@@ -32,17 +32,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Returned Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "first_name": "John",
-      "last_name": "Doe",
-      "password": "$2a$08$qmrYAzgog33SwlnMOYUmOei28dFYW81qoDJsBRaUDFWKifWvakqB.",
-      "email": "john@gmail.com",
-      "created_at": "2020-11-04 00:19:48",
-      "updated_at": "2020-11-04 00:19:48"
-    }
-  }
+  { "message": "SUCCESS: User with ID: 1 registered." }
   ```
 
 </details>
@@ -51,7 +41,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST to /login</summary>
 
-  [Log in to Apollo with verified credentials]
+  Log in to Apollo with verified credentials
 
   Expected Request body:
 
@@ -66,15 +56,106 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   ```JSON
   {
+    "message": "SUCCESS: User logged in.",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJlbWFpbCI6ImpvZUBnbWFpbC5jb20iLCJpYXQiOjE2MDQ0NDkyMTIsImV4cCI6MTYwNDUzNTYxMn0.j-Z_aHFVbxzmMSlLudQP7JGggo113ou4teDaDp9O7TE"
+  }
+  ```
+
+</details>
+
+## Users
+
+<details>
+
+  <summary>GET /users</summary>
+
+  Fetch all users
+  
+  Response:
+
+  ```JSON
+  {
+    "data": [
+      {
+        "id": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@gmail.com"
+      },
+      {
+        "id": 2,
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "email": "jane@gmail.com"
+      },
+      {
+        "id": 3,
+        "first_name": "Jimmy",
+        "last_name": "Doe",
+        "email": "jimmy@gmail.com"
+      }
+    ]
+  }
+  ```
+
+</details>
+
+<details>
+
+  <summary>GET /users/:id</summary>
+
+  Fetch a user by ID
+  
+  Response:
+
+  ```JSON
+  {
     "data": {
       "id": 1,
       "first_name": "John",
       "last_name": "Doe",
-      "email": "john@email.com",
-      "password": "$2a$08$qmrYAzgog33SwlnMOYUmOei28dFYW81qoDJsBRaUDFWKifWvakqB."
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJlbWFpbCI6ImpvZUBnbWFpbC5jb20iLCJpYXQiOjE2MDQ0NDkyMTIsImV4cCI6MTYwNDUzNTYxMn0.j-Z_aHFVbxzmMSlLudQP7JGggo113ou4teDaDp9O7TE"
+      "password": "test",
+      "email": "john@gmail.com",
+      "created_at": "2020-11-03 23:33:47",
+      "updated_at": "2020-11-03 23:33:47"
+    }
   }
+  ```
+
+</details>
+
+<details>
+
+  <summary>PUT /users/:id</summary>
+
+  Edit a user
+
+  Expected Request Body:
+
+  ```jSON
+  {
+    "first_name": "Joe"
+  }
+  ```
+  
+  Response:
+
+  ```JSON
+  { "message": "SUCCESS: User with ID: 1 updated." }
+  ```
+
+</details>
+
+<details>
+
+  <summary>DELETE /users/:id</summary>
+
+  Delete a user
+  
+  Response:
+
+  ```JSON
+  { "message": "SUCCESS: User with ID: 1 deleted." }
   ```
 
 </details>
@@ -85,7 +166,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /topics</summary>
 
-  [Fetch all topics]
+  Fetch all topics
   
   Response:
 
@@ -129,7 +210,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /topics/:id</summary>
 
-  [Fetch a topic by ID]
+  Fetch a topic by ID
   
   Response:
 
@@ -153,7 +234,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /topics/leader/:id</summary>
 
-  [Fetch all topics by a leader ID]
+  Fetch all topics by a leader ID
   
   Response:
 
@@ -188,7 +269,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /topics</summary>
 
-  [Create a new topic]
+  Create a new topic
 
   Expected Request Body:
 
@@ -196,7 +277,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   {
     "title": "Stakeholder Meeting",
     "frequency": "Weekly",
-    "join_code": "P8FG6K",  // auto-generated on the front end
+    "join_code": "P8FG6K",
     "leader_id": 2
   }
   ```
@@ -205,15 +286,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   ```JSON
   {
-    "data": {
-      "id": 4,
-      "title": "Stakeholder Meeting",
-      "frequency": "Weekly",
-      "join_code": "P8FG6K",
-      "leader_id": 4,
-      "created_at": "2020-11-04 00:33:57",
-      "updated_at": "2020-11-04 00:33:57"
-    }
+    "message": "SUCCESS: Topic with ID: 1 created."
   }
   ```
 
@@ -223,7 +296,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>PUT /topics/:id</summary>
 
-  [Edit a topic]
+  Edit a topic
 
   Expected Request Body:
 
@@ -231,7 +304,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   {
     "title": "Stakeholder Meeting",
     "frequency": "Monthly",
-    "join_code": "P8FG6K",  // auto-generated on the front end
+    "join_code": "P8FG6K",
     "leader_id": 2
   }
   ```
@@ -240,15 +313,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   ```JSON
   {
-    "data": {
-      "id": 4,
-      "title": "Stakeholder Meeting",
-      "frequency": "Monthly",
-      "join_code": "P8FG6K",
-      "leader_id": 4,
-      "created_at": "2020-11-04 00:33:57",
-      "updated_at": "2020-11-04 00:37:32"
-    }
+    "message": "SUCCESS: Topic with ID: 1 updated."
   }
   ```
 
@@ -258,12 +323,12 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>DELETE /topics/:id</summary>
 
-  [Delete a topic]
+  Delete a topic
   
   Response:
 
   ```JSON
-  "The topic with ID: 4 was successfully deleted."
+  { "message": "SUCCESS: Topic with ID: 4 deleted." }
   ```
 
 </details>
@@ -274,7 +339,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /topic-members</summary>
 
-  [Fetch all topic members]
+  Fetch all topic members
   
   Response:
 
@@ -307,7 +372,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /topic-members/members/:id</summary>
 
-  [Fetch a topic member by id]
+  Fetch a topic member by id
   
   Response:
 
@@ -330,7 +395,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /topic-members/:id</summary>
 
-  [Fetch all topic members by a topic id]
+  Fetch all topic members by a topic id
   
   Response:
 
@@ -363,7 +428,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /topic-members</summary>
 
-  [Creates a new topic-member]
+  Creates a new topic-member
 
   Expected Request Body:
 
@@ -378,16 +443,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 2,
-      "topic_id": 1,
-      "user_id": 2,
-      "role": "user",
-      "created_at": "2020-11-04 01:02:26",
-      "updated_at": "2020-11-04 01:02:26"
-    }
-  }
+  { "message": "SUCCESS: Topic Member with ID: 1 created." }
   ```
 
 </details>
@@ -396,7 +452,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>PUT /topic-members/:id</summary>
 
-  [Edit a topic member. Can be used to change member roles/privileges]
+  Edit a topic member. Can be used to change member roles/privileges
 
   Expected Request Body:
 
@@ -411,16 +467,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 2,
-      "topic_id": 1,
-      "user_id": 2,
-      "role": "admin",
-      "created_at": "2020-11-04 01:02:26",
-      "updated_at": "2020-11-04 01:02:26"
-    }
-  }
+  { "message": "SUCCESS: Topic with ID: 1 updated." }
   ```
 
 </details>
@@ -429,12 +476,12 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>DELETE /topic-members/:id</summary>
 
-  [Delete a topic member. Can be used to remove a user from a topic]
+  Delete a topic member. Can be used to remove a user from a topic
   
   Response:
 
   ```JSON
-  "The topic member with ID: 2 was removed."
+  { "message": "SUCCESS: Topic Member with ID: 1 deleted." }
   ```
 
 </details>
@@ -445,7 +492,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /surveys</summary>
 
-  [Fetch all surveys]
+  Fetch all surveys
   
   Response:
 
@@ -476,7 +523,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /surveys/:id</summary>
 
-  [Fetch a survey by ID]
+  Fetch a survey by ID
   
   Response:
 
@@ -498,7 +545,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /surveys/topic/:id</summary>
 
-  [Fetch all surveys by a topic ID]
+  Fetch all surveys by a topic ID
   
   Response:
 
@@ -537,7 +584,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /surveys</summary>
 
-  [Create a new survey]
+  Create a new survey
 
   Expected Request Body:
 
@@ -551,15 +598,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 4,
-      "topic_id": 2,
-      "context": "Engineering Leadership",
-      "created_at": "2020-11-04 01:08:46",
-      "updated_at": "2020-11-04 01:08:46"
-    }
-  }
+  { "message": "SUCCESS: Survey with ID: 1 created." }
   ```
 
 </details>
@@ -568,7 +607,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>PUT /surveys/:id</summary>
 
-  [Edit a survey]
+  Edit a survey
 
   Expected Request Body:
 
@@ -582,15 +621,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 4,
-      "topic_id": 2,
-      "context": "Design Leadership",
-      "created_at": "2020-11-04 01:08:46",
-      "updated_at": "2020-11-04 01:18:18"
-    }
-  }
+  { "message": "SUCCESS: Survey with ID: 1 updated." }
   ```
 
 </details>
@@ -599,12 +630,12 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>DELETE /surveys/:id</summary>
 
-  [Delete a survey]
+  Delete a survey
   
   Response:
 
   ```JSON
-  "The survey with ID: 4 was successfully deleted."
+  { "message": "SUCCESS: Survey with ID: 1 deleted." }
   ```
 
 </details>
@@ -615,33 +646,33 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /questions</summary>
 
-  [Fetch all questions]
+  Fetch all questions
   
   Response:
 
   ```JSON
   {
     "data": [
-        {
-            "id": 1,
-            "topic_id": 1,
-            "type": "context",
-            "style": "text",
-            "question": "What is our current priority?",
-            "default": 1,
-            "created_at": "2020-11-03 23:33:47",
-            "updated_at": "2020-11-03 23:33:47"
-        },
-        {
-            "id": 2,
-            "topic_id": 1,
-            "type": "request",
-            "style": "text",
-            "question": "Do you have any blockers?",
-            "default": 1,
-            "created_at": "2020-11-03 23:33:47",
-            "updated_at": "2020-11-03 23:33:47"
-        },
+      {
+          "id": 1,
+          "topic_id": 1,
+          "type": "context",
+          "style": "text",
+          "question": "What is our current priority?",
+          "default": 1,
+          "created_at": "2020-11-03 23:33:47",
+          "updated_at": "2020-11-03 23:33:47"
+      },
+      {
+          "id": 2,
+          "topic_id": 1,
+          "type": "request",
+          "style": "text",
+          "question": "Do you have any blockers?",
+          "default": 1,
+          "created_at": "2020-11-03 23:33:47",
+          "updated_at": "2020-11-03 23:33:47"
+      },
     ]
   }
   ```
@@ -652,7 +683,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /questions/:id</summary>
 
-  [Fetch a question by id]
+  Fetch a question by id
   
   Response:
 
@@ -677,7 +708,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /questions/topic/:id</summary>
 
-  [Fetch all questions by a topic id]
+  Fetch all questions by a topic id
   
   Response:
 
@@ -722,7 +753,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /questions/topic/:id/default</summary>
 
-  [Fetch all default questions by a topic id. Default questions are preset when creating a topic and will be initialized with every new survey. Changing default questions will cause all new surveys to be created with the newly selected questions.]
+  Fetch all default questions by a topic id. Default questions are preset when creating a topic and will be initialized with every new survey. Changing default questions will cause all new surveys to be created with the newly selected questions.
   
   Response:
 
@@ -767,7 +798,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /questions</summary>
 
-  [Create a new question]
+  Create a new question
 
   Expected Request Body:
 
@@ -783,17 +814,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "topic_id": 1,
-      "type": "request",
-      "style": "rating",
-      "question": "How are you feeling after this week?",
-      "created_at": "2020-11-03 23:33:47",
-      "updated_at": "2020-11-03 23:33:47"
-    }
-  }
+  { "message": "SUCCESS: Question with ID: 1 created." }
   ```
 
 </details>
@@ -802,7 +823,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>PUT /questions/:id</summary>
 
-  [Edit a question]
+  Edit a question
 
   Expected Request Body:
 
@@ -815,17 +836,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "topic_id": 1,
-      "type": "request",
-      "style": "text",
-      "question": "How are you feeling after this week?",
-      "created_at": "2020-11-03 23:33:47",
-      "updated_at": "2020-11-04 19:13:21"
-    }
-  }
+  { "message": "SUCCESS: Question with ID: 1 updated." }
   ```
 
 </details>
@@ -834,12 +845,12 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>DELETE /questions/:id</summary>
 
-  [Delete a question]
+  Delete a question
   
   Response:
 
   ```JSON
-  "The question with ID: 1 was successfully deleted."
+  { "message": "SUCCESS: Question with ID: 1 deleted." }
   ```
 
 </details>
@@ -850,7 +861,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /survey-questions</summary>
 
-  [Get all survey questions]
+  Get all survey questions
   
   Response:
 
@@ -891,7 +902,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /survey-questions/:id</summary>
 
-  [Get a survey question by id]
+  Get a survey question by id
   
   Response:
 
@@ -916,7 +927,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /survey-questions/survey/:id</summary>
 
-  [Get a survey question by a survey id]
+  Get a survey question by a survey id
   
   Response:
 
@@ -951,7 +962,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /survey-questions</summary>
 
-  [Create a new survey question. The database will create the question first if it noes not yet exist in the database.]
+  Create a new survey question. The database will create the question first if it noes not yet exist in the database. If no `question_id` is given, the question will first be created. The question object is needed so that the db can create the question before creating the survey question if the question does not yet exist.
 
   Expected Request Body:
 
@@ -959,10 +970,9 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   {
     "sq": {
       "survey_id": 1,
-      // if no question_id is provided, question will first be created
-      "question_id": 1
+      "question_id": 1,
     },
-    "question": { // needed so that the db can create the question before creating the survey question if the question does not yet exist
+    "question": {
       "topic_id": 1,
       "type": "request",
       "style": "text",
@@ -974,20 +984,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "survey_id": 1,
-      "question_id": 1,
-      "created_at": "2020-11-04 22:37:50",
-      "updated_at": "2020-11-04 22:37:50",
-      "topic_id": 1,
-      "type": "request",
-      "style": "text",
-      "question": "What is our current priority?",
-      "default": 0
-    }
-  }
+  { "message": "SUCCESS: Survey Question with ID: 1 created." }
   ```
 
 </details>
@@ -996,7 +993,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>PUT /survey-questions/:id</summary>
 
-  [Edit a survey question]
+  Edit a survey question
 
   Expected Request Body:
 
@@ -1010,18 +1007,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "topic_id": 1,
-      "survey_id": 1,
-      "question_id": 2,
-      "type": "context",
-      "style": "text",
-      "question": "When is the next deadline?",
-      "default": 1
-    },
-  }
+  { "message": "SUCCESS: Survey Question with ID: 1 updated." }
   ```
 
 </details>
@@ -1030,12 +1016,12 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>DELETE /survey-questions/:id</summary>
 
-  [Delete a survey question]
+  Delete a survey question
   
   Response:
 
   ```JSON
-  "The survey question with ID: 1 was successfully deleted."
+  { "message": "SUCCESS: Survey Question with ID: 1 deleted." }
   ```
 
 </details>
@@ -1046,7 +1032,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /responses</summary>
 
-  [Fetch all responses. The response JSON object will return the response, the question, and the user that responded.]
+  Fetch all responses. The response JSON object will return the response, the question, and the user that responded.
   
   Response:
 
@@ -1114,7 +1100,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /responses/:id</summary>
 
-  [Get a response by id]
+  Get a response by id
   
   Response:
 
@@ -1146,7 +1132,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /responses/survey/:id</summary>
 
-  [Get all responses by a survey id]
+  Get all responses by a survey id
   
   Response:
 
@@ -1197,7 +1183,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /responses</summary>
 
-  [Create a new response]
+  Create a new response
 
   Expected Request Body:
 
@@ -1213,25 +1199,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "question_id": 1,
-      "user_id": 2,
-      "survey_id": 1,
-      "response": "Finishing up the back end API.",
-      "created_at": "2020-11-03 23:33:47",
-      "updated_at": "2020-11-03 23:33:47",
-      "topic_id": 1,
-      "type": "context",
-      "style": "text",
-      "question": "What is our current priority?",
-      "default": 1,
-      "first_name": "Jane",
-      "last_name": "Doe",
-      "email": "jane@gmail.com"
-    }
-  }
+  { "message": "SUCCESS: Response with ID: 1 created."}
   ```
 
 </details>
@@ -1240,7 +1208,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>PUT /responses/:id</summary>
 
-  [Edit a response]
+  Edit a response
 
   Expected Request Body:
 
@@ -1256,25 +1224,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "question_id": 1,
-      "user_id": 2,
-      "survey_id": 1,
-      "response": "Finishing up the UI components.",
-      "created_at": "2020-11-03 23:33:47",
-      "updated_at": "2020-11-04 12:48:19",
-      "topic_id": 1,
-      "type": "context",
-      "style": "text",
-      "question": "What is our current priority?",
-      "default": 1,
-      "first_name": "Jane",
-      "last_name": "Doe",
-      "email": "jane@gmail.com"
-    }
-  }
+  { "message": "SUCCESS: Response with ID: 1 updated."}
   ```
 
 </details>
@@ -1283,12 +1233,12 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>DELETE /responses/:id</summary>
 
-  [Delete a response]
+  Delete a response
   
   Response:
 
   ```JSON
-  "The response with ID: 1 was successfully deleted."
+  { "message": "SUCCESS: Response with ID: 1 deleted."}
   ```
 
 </details>
@@ -1299,7 +1249,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /comments</summary>
 
-  [Fetch all comments]
+  Fetch all comments
   
   Response:
 
@@ -1340,7 +1290,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>GET /comments/:id</summary>
 
-  [Fetch a comment by id]
+  Fetch a comment by id
   
   Response:
 
@@ -1363,7 +1313,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /comments</summary>
 
-  [Create a new comment]
+  Create a new comment
 
   Expected Request Body:
 
@@ -1378,16 +1328,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "user_id": 1,
-      "response_id": 5,
-      "comment": "Awesome! Keep up the great work.",
-      "created_at": "2020-11-03 23:33:47",
-      "updated_at": "2020-11-03 23:33:47"
-    }
-  }
+  { "message": "SUCCESS: Comment with ID: 1 created."}
   ```
 
 </details>
@@ -1396,7 +1337,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>PUT /comments/:id</summary>
 
-  [Edit a comment]
+  Edit a comment
 
   Expected Request Body:
 
@@ -1411,16 +1352,7 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
   Response:
 
   ```JSON
-  {
-    "data": {
-      "id": 1,
-      "user_id": 1,
-      "response_id": 5,
-      "comment": "Do you have any questions?",
-      "created_at": "2020-11-03 23:33:47",
-      "updated_at": "2020-11-03 23:33:47"
-    }
-  }
+  { "message": "SUCCESS: Comment with ID: 1 updated."}
   ```
 
 </details>
@@ -1429,12 +1361,12 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>DELETE /comments/:id</summary>
 
-  [Delete a comment]
+  Delete a comment
   
   Response:
 
   ```JSON
-  "The comment with ID: 1 was successfully deleted."
+  { "message": "SUCCESS: Comment with ID: 1 deleted."}
   ```
 
 </details>

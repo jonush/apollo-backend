@@ -59,7 +59,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     Topics.add({ ...topic, leader_id: req.decodedToken.subject })
       .then(newTopic => {
-        res.status(201).json({ data: newTopic })
+        res.status(201).json({ message: `SUCCESS: Topic with ID: ${newTopic.id} created.` })
       })
       .catch(err => {
         console.log("POST /topics/", err);
@@ -78,11 +78,11 @@ router.put("/:id", restricted, (req, res) => {
       if(topic) {
         Topics.edit(update, id)
           .then(updatedTopic => {
-            res.status(200).json({ data: updatedTopic });
+            res.status(200).json({ message: `SUCCESS: Topic with ID: ${updatedTopic.id} updated.` });
           })
           .catch(err => {
             console.log('PUT /topics/:id', err);
-            res.status(400).json({ error: "Unable to update the topic. PLease try again." });
+            res.status(400).json({ error: "Unable to update the topic. Please try again." });
           })
       } else {
         res.status(404).json({ error: `Unable to find a topic with id: ${id}` });
@@ -104,11 +104,11 @@ router.delete("/:id", restricted, (req, res) => {
       Topics.remove(topic.id)
         .then(removed => {
           console.log(removed);
-          res.status(200).json({ message: `The topic: ${topic.title} was successfully deleted.` });
+          res.status(200).json({ message: `SUCCESS: Topic with ID: ${id} deleted.` });
         })
         .catch(err => {
           console.log("DELETE /topics/:id", err);
-          res.status(500).json({ error: "There was an error when deleting the topic. PLease try again." });
+          res.status(500).json({ error: "There was an error when deleting the topic. Please try again." });
         })
     })
     .catch(err => {

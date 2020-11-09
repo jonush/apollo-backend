@@ -59,7 +59,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     TopicMembers.add(member)
       .then(newMember => {
-        res.status(201).json({ data: newMember })
+        res.status(201).json({ message: `Topic Member with ID: ${newMember.id} updated successfully.` })
       })
       .catch(err => {
         console.log("POST /topic-members", err);
@@ -78,11 +78,11 @@ router.put("/members/:id", restricted, (req, res) => {
       if(member) {
         TopicMembers.edit(update, id)
           .then(updatedMember => {
-            res.status(200).json({ data: updatedMember });
+            res.status(200).json({ message: `SUCCESS: Topic Member with ID: ${updatedMember.id} updated.` });
           })
           .catch(err => {
             console.log('PUT /topic-members/members/:id', err);
-            res.status(400).json({ error: "Unable to update the topic member. PLease try again." });
+            res.status(400).json({ error: "Unable to update the topic member. Please try again." });
           })
       } else {
         res.status(404).json({ error: `Unable to find a topic member with id: ${id}` });
@@ -104,11 +104,11 @@ router.delete("/members/:id", restricted, (req, res) => {
       TopicMembers.remove(member.id)
         .then(removed => {
           console.log(removed);
-          res.status(200).json({ message: `The topic member was successfully deleted.` });
+          res.status(200).json({ message: `SUCCESS: Topic Member with ID: ${id} deleted.` });
         })
         .catch(err => {
           console.log("DELETE /topic-members/members/:id", err);
-          res.status(500).json({ error: "There was an error when deleting the topic member. PLease try again." });
+          res.status(500).json({ error: "There was an error when deleting the topic member. Please try again." });
         })
     })
     .catch(err => {
