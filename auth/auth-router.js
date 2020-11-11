@@ -7,7 +7,7 @@ const Users = require("../api/users/users-model");
 const { isValid } = require('../api/users/users-service');
 const hidden = require('./vars');
 
-// POST to create a new user & log in
+// POST to create a new user
 router.post("/register", (req, res) => {
   const credentials = req.body;
 
@@ -17,25 +17,7 @@ router.post("/register", (req, res) => {
 
     Users.add(credentials)
       .then((user) => {
-        const { email, password } = user;
-
-        if (isValid(user)) {
-          Users.findBy({ email: email })
-            .then(([user]) => {
-              if (user && bcryptjs.compareSync(password, user.password)) {
-                const token = createToken(user);
-                res.status(201).json({ message: `SUCCESS: User with ID: ${user.id} registered.`, token });
-              } else {
-                res.status(401).json({ message: "Invalid credentials" });
-              }
-            })
-            .catch((err) => {
-              console.log("POST to /login", err);
-              res.status(400).json({ message: err.message });
-            });
-        } else {
-          res.status(500).json({ message: "Email and password are required" });
-        }
+        res.status(201).json({ message: `SUCCESS: User with ID: ${user.id} registered.` });
       })
       .catch((err) => {
         console.log("POST to /register", err);
