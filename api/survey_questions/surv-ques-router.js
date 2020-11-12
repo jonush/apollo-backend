@@ -7,7 +7,7 @@ const Questions = require("../questions/questions-model");
 router.get("/", restricted, (req, res) => {
   SurveyQuestions.find()
     .then(questions => {
-      res.status(200).json({ data: questions })
+      res.status(200).json(questions)
     })
     .catch(err => {
       console.log("GET /survey-questions/", err);
@@ -22,7 +22,7 @@ router.get("/:id", restricted, (req,res) => {
   SurveyQuestions.findByID(id)
     .then(question => {
       if(question) {
-        res.status(200).json({ data: question });
+        res.status(200).json(question);
       } else {
         res.status(404).json({ error: `Unable to find survey question with id: ${id}` });
       }
@@ -40,7 +40,7 @@ router.get("/survey/:id", restricted, (req,res) => {
   SurveyQuestions.findBySurveyID(id)
     .then(questions => {
       if(questions) {
-        res.status(200).json({ data: questions });
+        res.status(200).json(questions);
       } else {
         res.status(404).json({ error: `Unable to find survey questions from Topic ID: ${id}` });
       }

@@ -6,7 +6,7 @@ const TopicMembers = require("./members-model");
 router.get("/", restricted, (req, res) => {
   TopicMembers.find()
     .then(members => {
-      res.status(200).json({ data: members })
+      res.status(200).json(members)
     })
     .catch(err => {
       console.log("GET /topic-members/", err);
@@ -21,7 +21,7 @@ router.get("/:id", restricted, (req,res) => {
   TopicMembers.findByTopic(id)
     .then(members => {
       if(members) {
-        res.status(200).json({ data: members });
+        res.status(200).json(members);
       } else {
         res.status(404).json({ error: `Unable to find topic with id: ${id}` });
       }
@@ -39,7 +39,7 @@ router.get("/members/:id", restricted, (req,res) => {
   TopicMembers.findByID(id)
     .then(member => {
       if(member) {
-        res.status(200).json({ data: member });
+        res.status(200).json(member);
       } else {
         res.status(404).json({ error: `Unable to find topic member with ID: ${id}` });
       }

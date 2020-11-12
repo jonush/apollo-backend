@@ -5,7 +5,7 @@ const Users = require("./users-model");
 router.get("/", restricted, (req, res) => {
   Users.find()
     .then((users) => {
-      res.status(200).json({ data: users });
+      res.status(200).json(users);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -19,7 +19,7 @@ router.get("/:id", restricted, (req,res) => {
   Users.findByID(id)
     .then(user => {
       if(user) {
-        res.status(200).json({ data: user });
+        res.status(200).json(user);
       } else {
         res.status(404).json({ error: `Unable to find user with ID: ${id}` });
       }

@@ -6,7 +6,7 @@ const Responses = require("./responses-model");
 router.get("/", restricted, (req, res) => {
   Responses.find()
     .then(responses => {
-      res.status(200).json({ data: responses })
+      res.status(200).json(responses)
     })
     .catch(err => {
       console.log("GET /responses/", err);
@@ -21,7 +21,7 @@ router.get("/:id", restricted, (req,res) => {
   Responses.findByID(id)
     .then(response => {
       if(response) {
-        res.status(200).json({ data: response });
+        res.status(200).json(response);
       } else {
         res.status(404).json({ error: `Unable to find response with id: ${id}` });
       }
@@ -39,7 +39,7 @@ router.get("/survey/:id", restricted, (req,res) => {
   Responses.findBySurveyID(id)
     .then(responses => {
       if(responses) {
-        res.status(200).json({ data: responses });
+        res.status(200).json(responses);
       } else {
         res.status(404).json({ error: `Unable to find responses from survey ID: ${id}` });
       }

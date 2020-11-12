@@ -6,7 +6,7 @@ const Topics = require("./topics-model");
 router.get("/", restricted, (req, res) => {
   Topics.find()
     .then(topics => {
-      res.status(200).json({ data: topics })
+      res.status(200).json(topics)
     })
     .catch(err => {
       console.log("GET /topics/", err);
@@ -21,7 +21,7 @@ router.get("/:id", restricted, (req,res) => {
   Topics.findByID(id)
     .then(topic => {
       if(topic) {
-        res.status(200).json({ data: topic });
+        res.status(200).json(topic);
       } else {
         res.status(404).json({ error: `Unable to find topic with id: ${id}` });
       }
@@ -39,7 +39,7 @@ router.get("/leader/:id", restricted, (req,res) => {
   Topics.findByLeaderID(id)
     .then(topics => {
       if(topics) {
-        res.status(200).json({ data: topics });
+        res.status(200).json(topics);
       } else {
         res.status(404).json({ error: `Unable to find topics from LeaderID: ${id}` });
       }

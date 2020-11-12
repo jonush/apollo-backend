@@ -6,7 +6,7 @@ const Comments = require("./comments-model");
 router.get("/", restricted, (req, res) => {
   Comments.find()
     .then(comments => {
-      res.status(200).json({ data: comments })
+      res.status(200).json(comments)
     })
     .catch(err => {
       console.log("GET /comments/", err);
@@ -21,7 +21,7 @@ router.get("/:id", restricted, (req,res) => {
   Comments.findByID(id)
     .then(comment => {
       if(comment) {
-        res.status(200).json({ data: comment });
+        res.status(200).json(comment);
       } else {
         res.status(404).json({ error: `Unable to find comment with id: ${id}` });
       }
@@ -39,7 +39,7 @@ router.get("/response/:id", restricted, (req,res) => {
   Comments.findByResponseID(id)
     .then(comments => {
       if(comments) {
-        res.status(200).json({ data: comments });
+        res.status(200).json(comments);
       } else {
         res.status(404).json({ error: `Unable to find comments from Response ID: ${id}` });
       }
