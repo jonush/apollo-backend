@@ -57,7 +57,7 @@ router.post("/", restricted, (req, res) => {
   if(req.body.title === "" || req.body.frequency === "") {
     res.status(400).json({ error: "Missing topic title or frequency" });
   } else {
-    Topics.add(topic)
+    Topics.add({ ...topic, leader_id: req.decodedToken.subject })
       .then(newTopic => {
         res.status(201).json({ message: `SUCCESS: Topic with ID: ${newTopic.id} created.`, topicID: newTopic.id })
       })
