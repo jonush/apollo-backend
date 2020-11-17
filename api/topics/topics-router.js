@@ -58,6 +58,7 @@ router.post("/", restricted, (req, res) => {
     res.status(400).json({ error: "Missing topic title or frequency" });
   } else {
     console.log(req.decodedToken.subject);
+    console.log(topic);
     Topics.add({ ...topic, leader_id: req.decodedToken.subject })
       .then(newTopic => {
         console.log(newTopic);
