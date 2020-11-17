@@ -59,7 +59,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     Topics.add({ ...topic, leader_id: req.decodedToken.subject })
       .then(newTopic => {
-        res.status(201).json({ message: `SUCCESS: Topic with ID: ${newTopic.id} created.` })
+        res.status(201).json({ message: `SUCCESS: Topic with ID: ${newTopic.id} created.`, topicID: newTopic.id })
       })
       .catch(err => {
         console.log("POST /topics/", err);
