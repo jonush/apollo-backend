@@ -76,7 +76,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     Questions.add(question)
       .then(newQuestion => {
-        res.status(201).json({message: `SUCCESS: Question with ID: ${newQuestion.id} created.` })
+        res.status(201).json({message: `SUCCESS: Question with ID: ${newQuestion.id} created.`, id: newQuestion.id })
       })
       .catch(err => {
         console.log("POST /questions", err);
