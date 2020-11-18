@@ -59,7 +59,7 @@ router.post("/", restricted, (req, res) => {
   } else {
     Surveys.add(survey)
       .then(newSurvey => {
-        res.status(201).json({ message: `SUCCESS: Survey with ID: ${newSurvey.id} created.` })
+        res.status(201).json({ message: `SUCCESS: Survey with ID: ${newSurvey.id} created.`, surveyID: newSurvey.id })
       })
       .catch(err => {
         console.log("POST /surveys/", err);
