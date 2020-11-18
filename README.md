@@ -962,22 +962,18 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /survey-questions</summary>
 
-  Create a new survey question. The database will create the question first if it noes not yet exist in the database. If no `question_id` is given, the question will first be created. The question object is needed so that the db can create the question before creating the survey question if the question does not yet exist.
+  Create a new survey question. The database will create the question first if it noes not yet exist in the database. If no `question_id` is given, the question will first be created. The request handler will attempt to match the request question with the correct question in the database before creating a new question. **Only the `survey_id` and `question_id` are posted to the survey-questions table. The rest of the request object is used in case a new question needs to be created.**
 
   Expected Request Body:
 
   ```JSON
   {
-    "sq": {
-      "survey_id": 1,
-      "question_id": 1,
-    },
-    "question": {
-      "topic_id": 1,
-      "type": "request",
-      "style": "text",
-      "question": "What is our current priority?"
-    }
+    "survey_id": 1,
+    "question_id": 1,
+    "topic_id": 1,
+    "type": "request",
+    "style": "text",
+    "question": "What is our current priority?"
   }
   ```
   
@@ -1183,13 +1179,14 @@ The Apollo API uses JWT for authentication. After creating an account and loggin
 
   <summary>POST /responses</summary>
 
-  Create a new response
+  Create a new response. The `question` property is used to locate the `question_id` in the event that one is not supplied. It **will not be posted into the responses table.**
 
   Expected Request Body:
 
   ```JSON
   {
     "question_id": 1,
+    "question": "What is the current priority?",
     "user_id": 2,
     "survey_id": 1,
     "response": "Finishing up the back end API."
