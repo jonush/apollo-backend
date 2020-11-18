@@ -53,7 +53,7 @@ router.get("/survey/:id", restricted, (req,res) => {
 
 // POST a new survey question
 router.post("/", restricted, (req, res) => {
-  let surveyQuestion = req.body.sq;
+  let surveyQuestion = req.body;
   
   // if the question does not exist yet
   if(!surveyQuestion.question_id) {
