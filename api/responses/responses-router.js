@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const restricted = require('../../auth/auth-middleware');
+const SurveyQuestions = require("../survey_questions/surv-ques-model");
 const Responses = require("./responses-model");
 
 // GET all responses
@@ -54,16 +55,34 @@ router.get("/survey/:id", restricted, (req,res) => {
 router.post("/", restricted, (req, res) => {
   let response = req.body;
 
-  if(req.body.response === "" || req.body.question_id === "" || req.body.survey_id === "") {
-    res.status(400).json({ error: "Missing survey id, question id, or response" });
+  if(!response.question_id) {
+    SurveyQuestions.findBySurveyID(response.survey_id)
+      .then(surveyQuestion => {
+        for(let i = 0; i < surveyQuestions.length; i++) {
+          if(surveyQuestions[i].question === response.question) {
+            response.question_id = surveyQuestions[i].id;
+            Responses.add({question_id: response.question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
+              .then(newResponse => {
+                res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.`})
+              })
+              .catch(err => {
+                res.status(500).json({ error: "There was an error creating the new response."})
+              })
+          } else {
+            res.status(500).json({ error: "There was an error locating the question for this response."})
+          }
+        }
+      })
+      .catch(() => {
+        res.status(500).json({ error: "There was an error locating the survey for this response."})
+      })
   } else {
-    Responses.add(response)
+    Responses.add({question_id: response.question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
       .then(newResponse => {
-        res.status(201).json({ message: `SUCCESS: Response with ID: ${newResponse.id} created.` })
+        res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.`})
       })
       .catch(err => {
-        console.log("POST /responses", err);
-        res.status(500).json({ error: "Unable to creat the response. Please try again." });
+        res.status(500).json({ error: "There was an error creating the new response."})
       })
   }
 });

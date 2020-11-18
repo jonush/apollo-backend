@@ -54,47 +54,65 @@ router.get("/survey/:id", restricted, (req,res) => {
 // POST a new survey question
 router.post("/", restricted, (req, res) => {
   let surveyQuestion = req.body.sq;
-  let newQuestion = req.body.question;
   
-  // check if the survey question exists in the question table
-  Questions.findByID(surveyQuestion.question_id)
-    // then create the survey question using the returned question_id from the response
-    .then(() => {
-      if(surveyQuestion.survey_id === "") {
-        res.status(400).json({ error: "Missing survey id" });
-      } else {
-        SurveyQuestions.add(surveyQuestion)
-        .then(newQuestion => {
-          res.status(201).json({ message: `SUCCESS: Survey Question with ID: ${newQuestion.id} created.` })
-        })
-        .catch(err => {
-          console.log("POST /survey-questions", err);
-          res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
-        })
-      }
-    })
-    // if not, create the question
-    .catch(() => {
-      if(newQuestion.question) {
-        Questions.add(newQuestion)
-          .then(q => {
-            SurveyQuestions.add({ survey_id: surveyQuestion.survey_id, question_id: q.id })
-              .then(newQuestion => {
-                res.status(201).json({ message: `SUCCESS: Survey Question with ID: ${newQuestion.id} created.` });
-              })
-              .catch(err => {
-                console.log("POST /survey-questions", err);
-                res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
-              })
+  // if the question does not exist yet
+  if(!surveyQuestion.question_id) {
+    // first, create the new question
+    Questions.add({question: surveyQuestion.question, style: surveyQuestion.style, type: surveyQuestion.type, topic_id: surveyQuestion.topic_id})
+      .then(newQuestion => {
+        // then, create the new survey question
+        SurveyQuestions.add({survey_id: surveyQuestion.survey_id, question_id: newQuestion.id })
+          .then(newSurveyQuestion => {
+            res.status(201).json({ message: `SUCCESS: Survey Question with ID: ${newSurveyQuestion.id} created.` })
           })
           .catch(err => {
             console.log("POST /survey-questions", err);
-            res.status(500).json({ error: "There was an error creating the question. Please try again." })
+            res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
           })
-      } else {
+      })
+      .catch(err => {
+        console.log("POST /survey-questions", err);
+        res.status(500).json({ error: "There was an error creating the new question. Please try again." })
+      })
+  } else {
+    // fetch the existing question by ID
+    Questions.findByID(surveyQuestion.question_id)
+      .then(q => {
+        // the existing question has been changed
+        if(q.question !== surveyQuestion.question.question) {
+          Questions.add({question: surveyQuestion.question, style: surveyQuestion.style, type: surveyQuestion.type, topic_id: surveyQuestion.topic_id})
+            .then(newQuestion => {
+              // then, create the new survey question
+              SurveyQuestions.add({survey_id: surveyQuestion.survey_id, question_id: newQuestion.id })
+                .then(newSurveyQuestion => {
+                  res.status(201).json({ message: `SUCCESS: Survey Question with ID: ${newSurveyQuestion.id} created.` })
+                })
+                .catch(err => {
+                  console.log("POST /survey-questions", err);
+                  res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
+                })
+            })
+            .catch(err => {
+              console.log("POST /survey-questions", err);
+              res.status(500).json({ error: "There was an error creating the new question. Please try again." })
+            })
+        } else { 
+          // the existing question is not changed and can be made into a survey question
+          SurveyQuestions.add({survey_id: surveyQuestion.survey_id, question_id: surveyQuestion.question_id })
+            .then(newSurveyQuestion => {
+              res.status(201).json({ message: `SUCCESS: Survey Question with ID: ${newSurveyQuestion.id} created.` })
+            })
+            .catch(err => {
+              console.log("POST /survey-questions", err);
+              res.status(500).json({ error: "Unable to creat the survey question. Please try again." });
+            })
+        }
+      })
+      .catch(err => {
+        console.log("POST /survey-questions", err);
         res.status(500).json({ error: "Unable to create the survey question because there was an error with the question." })
-      }
-    })
+      })
+  }
 });
 
 // EDIT a survey question
