@@ -18,7 +18,7 @@ function findByTopicID(topicID) {
   return db("topics")
     .where("topics.id", topicID)
     .join("questions", "questions.topic_id", "topics.id")
-    .select("questions.topic_id", "questions.type", "questions.style", "questions.question", "questions.default")
+    .select("questions.id", "questions.topic_id", "questions.type", "questions.style", "questions.question", "questions.default")
     .orderBy("questions.id")
 }
 
