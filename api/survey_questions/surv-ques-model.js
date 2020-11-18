@@ -13,7 +13,7 @@ function findByID(id) {
     .join("questions", "questions.id", "survey_questions.question_id")
     .first()
     .select("*")
-    .orderBy("id")
+    .orderBy("survey_questions.question_id")
 }
 
 function findBySurveyID(surveyID) {
