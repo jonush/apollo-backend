@@ -26,7 +26,7 @@ function findByUserID(userID) {
     .where("users.id", userID)
     .join("topic_members", "topic_members.user_id", "users.id")
     .join("topics", "topics.id", "topic_members.topic_id")
-    .select("topics.id", "topics.title", "topics.frequency", "topics.join_code", "topics.leader_id", "users.first_name", "users.last_name", "users.id")
+    .select("topics.id", "topics.title", "topics.frequency", "topics.join_code", "topics.leader_id")
     .orderBy("topics.created_at", "desc")
 }
 
