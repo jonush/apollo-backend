@@ -21,6 +21,15 @@ function findByLeaderID(leaderID) {
     .orderBy("topics.id")
 }
 
+function findByUserID(userID) {
+  return db("users")
+    .where("users.id", userID)
+    .join("topic_members", "topic_members.user_id", "users.id")
+    .join("topics", "topics.id", "topic_members.topic_id")
+    .select("topics.id", "topics.title", "topics.frequency", "topics.join_code", "topics.leader_id", "users.first_name", "users.last_name", "users.id")
+    .orderBy("topics.created_at", "desc")
+}
+
 function add(topic) {
   return db("topics")
     .insert(topic, "id")
@@ -50,6 +59,7 @@ module.exports = {
   find,
   findByID,
   findByLeaderID,
+  findByUserID,
   add,
   edit,
   remove,

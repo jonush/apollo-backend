@@ -50,6 +50,24 @@ router.get("/leader/:id", restricted, (req,res) => {
     })
 });
 
+// GET all topics by a user id
+router.get("/user/:id", restricted, (req,res) => {
+  const { id } = req.params;
+
+  Topics.findByUserID(id)
+    .then(topics => {
+      if(topics) {
+        res.status(200).json(topics);
+      } else {
+        res.status(404).json({ error: `Unable to find topics from UserID: ${id}` });
+      }
+    })
+    .catch(err => {
+      console.log("GET /topics/leader/:id", err);
+      res.status(500).json({ error: err.message });
+    })
+});
+
 // POST a new topic
 router.post("/", restricted, (req, res) => {
   let topic = req.body;
