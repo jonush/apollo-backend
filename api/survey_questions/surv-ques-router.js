@@ -56,7 +56,7 @@ router.post("/", restricted, (req, res) => {
   let surveyQuestion = req.body;
   
   // if the question does not exist yet
-  if(!surveyQuestion.question_id) {
+  if(surveyQuestion.question_id === undefined) {
     // first, create the new question
     Questions.add({question: surveyQuestion.question, style: surveyQuestion.style, type: surveyQuestion.type, topic_id: surveyQuestion.topic_id})
       .then(newQuestion => {
