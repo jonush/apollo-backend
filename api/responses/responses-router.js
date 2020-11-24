@@ -61,12 +61,12 @@ router.post("/", restricted, (req, res) => {
         if(response.question === surveyQuestions[i].question) {
           console.log("RESPONSE BEFORE:", response);
           console.log("SURVEY QUESTION:", surveyQuestions[i]);
-          response = {
+          let responseWithQID = {
             ...response,
             question_id: surveyQuestions[i].question_id,
           };
-          console.log("RESPONSE AFTER:", response);
-          Responses.add(response)
+          console.log("RESPONSE AFTER:", responseWithQID);
+          Responses.add(responseWithQID)
             .then(newResponse => {
               res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
             })
