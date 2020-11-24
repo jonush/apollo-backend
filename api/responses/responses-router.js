@@ -71,16 +71,18 @@ router.post("/", restricted, (req, res) => {
           Responses.add(responseWithQID)
             .then(newResponse => {
               res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
+              return;
             })
             .catch(err => {
               console.log("POST to responses", err)
               res.status(500).json({ error: "There was an error creating the new response." })
+              return;
             })
         }
       }
     })
     .catch(err => {
-      console.log("POST to responses", err)
+      console.log("SURVEY_QUESTIONS ERROR - findBySurveyID", err)
       res.status(500).json({ error: "There was an error getting the questions for the given survey id"})
     })
 });
