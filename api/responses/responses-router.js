@@ -60,8 +60,7 @@ router.post("/", restricted, (req, res) => {
       .then(surveyQuestions => {
         for(let i = 0; i < surveyQuestions.length; i++) {
           if(surveyQuestions[i].question === response.question) {
-            response = {...response, question_id: surveyQuestions[i].id};
-            Responses.add({question_id: response.question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
+            Responses.add({question_id: response.surveyQuestions[i].id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
               .then(newResponse => {
                 res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.`})
               })
