@@ -59,24 +59,21 @@ router.post("/", restricted, (req, res) => {
     .then(surveyQuestions => {
       for(let i = 0; i < surveyQuestions.length; i++) {
         if(response.question === surveyQuestions[i].question) {
-          console.log("RESPONSE BEFORE:", response);
-          console.log("SURVEY QUESTION:", surveyQuestions[i]);
           let responseWithQID = {
             question_id: surveyQuestions[i].question_id,
             user_id: response.user_id,
             survey_id: response.survey_id,
             response: response.response
           };
-          console.log("RESPONSE AFTER:", responseWithQID);
-          return Responses.add(responseWithQID)
+          Responses.add(responseWithQID)
             .then(newResponse => {
               res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
-              return;
+              break;
             })
             .catch(err => {
-              console.log("POST to responses", err)
+              console.log("POST /responses", err)
               res.status(500).json({ error: "There was an error creating the new response." })
-              return;
+              break;
             })
         }
       }
