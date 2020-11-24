@@ -57,7 +57,7 @@ router.post("/", restricted, (req, res) => {
 
   if(!response.question_id) {
     SurveyQuestions.findBySurveyID(response.survey_id)
-      .then(surveyQuestion => {
+      .then(surveyQuestions => {
         for(let i = 0; i < surveyQuestions.length; i++) {
           if(surveyQuestions[i].question === response.question) {
             response.question_id = surveyQuestions[i].id;
