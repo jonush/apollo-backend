@@ -62,11 +62,13 @@ router.post("/", restricted, (req, res) => {
           console.log("RESPONSE BEFORE:", response);
           console.log("SURVEY QUESTION:", surveyQuestions[i]);
           let responseWithQID = {
-            ...response,
             question_id: surveyQuestions[i].question_id,
+            user_id: response.user_id,
+            survey_id: response.survey_id,
+            response: response.response
           };
           console.log("RESPONSE AFTER:", responseWithQID);
-          Responses.add({ question_id: surveyQuestions[i].id, user_id: response.user_id, survey_id: response.survey_id, response: response.response })
+          Responses.add(responseWithQID)
             .then(newResponse => {
               res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
             })
@@ -74,8 +76,6 @@ router.post("/", restricted, (req, res) => {
               console.log("POST to responses", err)
               res.status(500).json({ error: "There was an error creating the new response." })
             })
-        } else {
-          res.status(404).json({ error: "There was an error locating the question connected to this response." })
         }
       }
     })
