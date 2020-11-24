@@ -57,6 +57,7 @@ router.post("/", restricted, (req, res) => {
 
   SurveyQuestions.findBySurveyID(response.survey_id)
     .then(surveyQuestions => {
+      console.log(surveyQuestions);
       for(let i = 0; i < surveyQuestions.length; i++) {
         console.log(response.question);
         console.log(surveyQuestions[i].question);
