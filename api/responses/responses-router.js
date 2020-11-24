@@ -68,7 +68,7 @@ router.post("/", restricted, (req, res) => {
             response: response.response
           };
           console.log("RESPONSE AFTER:", responseWithQID);
-          Responses.add(responseWithQID)
+          return Responses.add(responseWithQID)
             .then(newResponse => {
               res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
               return;
