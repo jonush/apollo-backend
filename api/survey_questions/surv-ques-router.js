@@ -78,6 +78,8 @@ router.post("/", restricted, (req, res) => {
     // fetch the existing question by ID
     Questions.findByID(surveyQuestion.question_id)
       .then(q => {
+        console.log("q:", q);
+        console.log("surveyQuestion:", surveyQuestion);
         // the existing question has been changed
         if(q.question !== surveyQuestion.question.question) {
           Questions.add({question: surveyQuestion.question, style: surveyQuestion.style, type: surveyQuestion.type, topic_id: surveyQuestion.topic_id})
