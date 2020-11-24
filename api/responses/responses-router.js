@@ -58,6 +58,8 @@ router.post("/", restricted, (req, res) => {
   SurveyQuestions.findBySurveyID(response.survey_id)
     .then(surveyQuestions => {
       for(let i = 0; i < surveyQuestions.length; i++) {
+        console.log(response.question);
+        console.log(surveyQuestions[i].question);
         if(response.question === surveyQuestions[i].question) {
           Responses.add({ question_id: surveyQuestions[i].id, user_id: response.user_id, survey_id: response.survey_id, response: response.response })
             .then(newResponse => {
