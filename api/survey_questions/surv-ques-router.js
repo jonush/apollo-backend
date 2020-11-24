@@ -56,7 +56,7 @@ router.post("/", restricted, (req, res) => {
   let surveyQuestion = req.body;
   
   // if the question does not exist yet
-  if(surveyQuestion.question_id === null) {
+  if(surveyQuestion.question_id === null || surveyQuestion.question_id === undefined) {
     // first, create the new question
     Questions.add({question: surveyQuestion.question, style: surveyQuestion.style, type: surveyQuestion.type, topic_id: surveyQuestion.topic_id})
       .then(newQuestion => {
@@ -81,7 +81,7 @@ router.post("/", restricted, (req, res) => {
         console.log("q:", q);
         console.log("surveyQuestion:", surveyQuestion);
         // the existing question has been changed
-        if(q.question !== surveyQuestion.question.question) {
+        if(q.question !== surveyQuestion.question) {
           Questions.add({question: surveyQuestion.question, style: surveyQuestion.style, type: surveyQuestion.type, topic_id: surveyQuestion.topic_id})
             .then(newQuestion => {
               // then, create the new survey question
