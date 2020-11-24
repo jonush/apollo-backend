@@ -55,35 +55,25 @@ router.get("/survey/:id", restricted, (req,res) => {
 router.post("/", restricted, (req, res) => {
   let response = req.body;
 
-  if(!response.question_id) {
-    SurveyQuestions.findBySurveyID(response.survey_id)
-      .then(surveyQuestions => {
-        for(let i = 0; i < surveyQuestions.length; i++) {
-          if(surveyQuestions[i].question === response.question) {
-            Responses.add({question_id: response.surveyQuestions[i].id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
-              .then(newResponse => {
-                res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.`})
-              })
-              .catch(err => {
-                res.status(500).json({ error: "There was an error creating the new response."})
-              })
-          } else {
-            res.status(500).json({ error: "There was an error locating the question for this response."})
-          }
+  SurveyQuestions.findBySurveyID(responses.survey_id)
+    .then(surveyQuestions => {
+      for(let i = 0; i < surveyQuestions.length; i++) {
+        if(response.question === surveyQuestions[i].question) {
+          Responses.add({ question_id: surveyQuestions[i].id, user_id: response.user_id, survey_id: response.survey_id, response: response.response })
+            .then(newResponse => {
+              res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
+            })
+            .catch(err => {
+              res.status(500).json({ error: "There was an error creating the new response." })
+            })
+        } else {
+          res.status(404).json({ error: "There was an error locating the question connected to this response." })
         }
-      })
-      .catch(() => {
-        res.status(500).json({ error: "There was an error locating the survey for this response."})
-      })
-  } else {
-    Responses.add({question_id: response.question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
-      .then(newResponse => {
-        res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.`})
-      })
-      .catch(err => {
-        res.status(500).json({ error: "There was an error creating the new response."})
-      })
-  }
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "There was an error getting the questions for the given survey id"})
+    })
 });
 
 // EDIT a response
