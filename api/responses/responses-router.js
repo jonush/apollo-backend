@@ -64,6 +64,7 @@ router.post("/", restricted, (req, res) => {
               res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
             })
             .catch(err => {
+              console.log("POST to responses", err)
               res.status(500).json({ error: "There was an error creating the new response." })
             })
         } else {
@@ -72,6 +73,7 @@ router.post("/", restricted, (req, res) => {
       }
     })
     .catch(err => {
+      console.log("POST to responses", err)
       res.status(500).json({ error: "There was an error getting the questions for the given survey id"})
     })
 });
