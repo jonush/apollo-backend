@@ -33,8 +33,6 @@ function findByQuestion(question, style, topicID) {
     .select("questions.type", "questions.style", "questions.question", "questions.id")
     .orderBy("questions.id")
     .then(questions => {
-      console.log("QUESTIONS:", questions);
-      console.log("FILTERED QUESTIONS:", questions.filter(q => q.question === question && q.style === style));
       return questions.filter(q => q.question === question)
     })
     .catch(err =>  console.log("---FIND QUESTION BY ID---", err))
@@ -44,7 +42,6 @@ function add(survey_question) {
   return db("survey_questions")
     .insert(survey_question, "id")
     .then(ids => {
-      console.log("NEW SURVEY QUESTION:", ids[0]);
       return findByID(ids[0])
     })
     .catch(err => console.log("---ADD SURVEY QUESTION ERROR---", err))
