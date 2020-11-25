@@ -56,10 +56,10 @@ router.post("/", restricted, (req, res) => {
   let response = req.body;
   console.log("RESPONSE:", response);
 
-  SurveyQuestions.findByQuestion(response.question, response.topic_id)
+  SurveyQuestions.findByQuestion(response.question, response.type, response.topic_id)
     .then(question => {
       console.log("QUESTION:", question);
-      Responses.add({question_id: question[0].question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
+      Responses.add({question_id: question[0].id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
         .then(newResponse => {
           res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
         })
