@@ -31,7 +31,7 @@ function findByQuestion(question, surveyID) {
     .where("surveys.id", surveyID)
     .join("survey_questions", "survey_questions.survey_id", "surveys.id")
     .join("questions", "questions.id", "survey_questions.question_id")
-    .select("questions.topic_id", "survey_questions.survey_id", "survey_questions.question_id",  "questions.type", "questions.style", "questions.question", "questions.default")
+    .select("survey_questions.survey_id", "survey_questions.question_id",  "questions.type", "questions.style", "questions.question")
     .orderBy("survey_questions.id")
     .then(questions => {
       console.log("QUESTIONS:", questions);
@@ -45,6 +45,7 @@ function add(survey_question) {
   return db("survey_questions")
     .insert(survey_question, "id")
     .then(ids => {
+      console.log(ids[0]);
       return findByID(ids[0])
     })
     .catch(err => console.log("---ADD SURVEY QUESTION ERROR---", err))
