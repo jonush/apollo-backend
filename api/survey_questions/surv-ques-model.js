@@ -28,7 +28,7 @@ function findBySurveyID(surveyID) {
 // when a response is created for an updated or new question, this handler will use the question itself to locate the question_id
 function findByQuestion(question, topicID) {
   return db("topics")
-    .where("topics.id", surveyID)
+    .where("topics.id", topicID)
     .join("questions", "questions.topic_id", "topics.id")
     .select("questions.type", "questions.style", "questions.question", "questions.id")
     .orderBy("questions.id")
