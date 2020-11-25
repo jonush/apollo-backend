@@ -25,7 +25,7 @@ function findBySurveyID(surveyID) {
     .join("questions", "questions.id", "responses.question_id")
     .join("users", "users.id", "responses.user_id")
     .select("responses.id", "responses.question_id", "responses.user_id", "responses.survey_id", "responses.response", "responses.created_at", "responses.updated_at", "questions.topic_id", "questions.type", "questions.style", "questions.question", "questions.default", "users.first_name", "users.last_name", "users.email")
-    .orderBy("responses.id")
+    .orderBy("questions.id", "asc")
 }
 
 function add(response) {
