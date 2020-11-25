@@ -45,7 +45,7 @@ function add(survey_question) {
   return db("survey_questions")
     .insert(survey_question, "id")
     .then(ids => {
-      console.log(ids[0]);
+      console.log("NEW SURVEY QUESTION:", ids[0]);
       return findByID(ids[0])
     })
     .catch(err => console.log("---ADD SURVEY QUESTION ERROR---", err))
