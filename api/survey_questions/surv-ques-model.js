@@ -25,6 +25,20 @@ function findBySurveyID(surveyID) {
     .orderBy("survey_questions.id")
 }
 
+// when a response is created for an updated or new question, this handler will use the question itself to locate the question_id
+function findByQuestion(question, surveyID) {
+  return db("surveys")
+    .where("surveys.id", surveyID)
+    .join("survey_questions", "survey_questions.survey_id", "surveys.id")
+    .join("questions", "questions.id", "survey_questions.question_id")
+    .select("questions.topic_id", "survey_questions.survey_id", "survey_questions.question_id",  "questions.type", "questions.style", "questions.question", "questions.default")
+    .orderBy("survey_questions.id")
+    .then(questions => {
+      return questions.filter(q => q.question === question)
+    })
+    .catch(err =>  console.log("---FIND QUESTION BY ID---", err))
+}
+
 function add(survey_question) {
   return db("survey_questions")
     .insert(survey_question, "id")
@@ -54,6 +68,7 @@ module.exports = {
   find,
   findByID,
   findBySurveyID,
+  findByQuestion,
   add,
   edit,
   remove,

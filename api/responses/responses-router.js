@@ -55,27 +55,20 @@ router.get("/survey/:id", restricted, (req,res) => {
 router.post("/", restricted, (req, res) => {
   let response = req.body;
 
-  SurveyQuestions.findBySurveyID(response.survey_id)
-    .then(surveyQuestions => {
-      for(let i = 0; i < surveyQuestions.length; i++) {
-        if(response.question === surveyQuestions[i].question) {
-          Responses.add({question_id: surveyQuestions[i].question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
-            .then(newResponse => {
-              console.log("POST /responses", newResponse)
-              res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
-              return;
-            })
-            .catch(err => {
-              console.log("POST /responses", err)
-              res.status(500).json({ error: "There was an error creating the new response." })
-              return;
-            })
-        }
-      }
+  SurveyQuestions.findByQuestion(response.question, response.survey_id)
+    .then(question => {
+      Responses.add({question_id: question[0].question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
+        .then(newResponse => {
+          res.status(200).json({ message: `A new response with ID: ${newResponse.id} was created.` })
+        })
+        .catch(err => {
+          console.log("POST /responses", err)
+          res.status(500).json({ error: "There was an error creating the new response." })
+        })
     })
     .catch(err => {
-      console.log("SURVEY_QUESTIONS ERROR - findBySurveyID", err)
-      res.status(500).json({ error: "There was an error getting the questions for the given survey id"})
+      console.log("SURVEY_QUESTIONS ERROR - findByQuestion", err)
+      res.status(500).json({ error: "There was an error finding the existing question." })
     })
 });
 
