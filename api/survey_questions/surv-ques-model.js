@@ -26,7 +26,7 @@ function findBySurveyID(surveyID) {
 }
 
 // when a response is created for an updated or new question, this handler will use the question itself to locate the question_id
-function findByQuestion(question, topicID) {
+function findByQuestion(question, style, topicID) {
   return db("topics")
     .where("topics.id", topicID)
     .join("questions", "questions.topic_id", "topics.id")
@@ -34,7 +34,7 @@ function findByQuestion(question, topicID) {
     .orderBy("questions.id")
     .then(questions => {
       console.log("QUESTIONS:", questions);
-      console.log("FILTERED QUESTIONS:", questions.filter(q => q.question === question));
+      console.log("FILTERED QUESTIONS:", questions.filter(q => q.question === question && q.style === style));
       return questions.filter(q => q.question === question)
     })
     .catch(err =>  console.log("---FIND QUESTION BY ID---", err))
