@@ -34,6 +34,8 @@ function findByQuestion(question, surveyID) {
     .select("questions.topic_id", "survey_questions.survey_id", "survey_questions.question_id",  "questions.type", "questions.style", "questions.question", "questions.default")
     .orderBy("survey_questions.id")
     .then(questions => {
+      console.log("QUESTIONS:", questions);
+      console.log("FILTERED QUESTIONS:", questions.filter(q => q.question === question));
       return questions.filter(q => q.question === question)
     })
     .catch(err =>  console.log("---FIND QUESTION BY ID---", err))
