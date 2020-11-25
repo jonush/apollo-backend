@@ -56,7 +56,7 @@ router.post("/", restricted, (req, res) => {
   let response = req.body;
   console.log("RESPONSE:", response);
 
-  SurveyQuestions.findByQuestion(response.question, response.survey_id)
+  SurveyQuestions.findByQuestion(response.question, response.topic_id)
     .then(question => {
       console.log("QUESTION:", question);
       Responses.add({question_id: question[0].question_id, user_id: response.user_id, survey_id: response.survey_id, response: response.response})
