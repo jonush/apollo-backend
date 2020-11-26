@@ -32,8 +32,8 @@ function findByQuestion(question, style, topicID) {
     .join("questions", "questions.topic_id", "topics.id")
     .select("questions.type", "questions.style", "questions.question", "questions.id")
     .orderBy("questions.id")
-    .then(questions => {
-      return questions.filter(q => q.question === question)
+    .then(questions => {  
+      return questions.filter(q => q.question === question && q.style === style)
     })
     .catch(err =>  console.log("---FIND QUESTION BY ID---", err))
 }
